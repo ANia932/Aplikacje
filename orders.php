@@ -2,52 +2,45 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
-  header("Location: login.html");
-  exit;
+    header("Location: login.html");
+    exit;
 }
 
 try {
-  $pdo = new PDO("pgsql:host=db;port=5432;dbname=moja_baza", "postgres", "postgres");
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("pgsql:host=db;port=5432;dbname=moja_baza", "postgres", "postgres");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-  if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_id'])) {
-    // Obsługa statusu – jeśli nie został przesłany (kliknięto tylko "Zapisz"), użyj ukrytego pola
-    $status = $_POST['status'] ?? $_POST['hidden_status'] ?? '';
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_id'])) {
+        $status = $_POST['status'] ?? $_POST['hidden_status'] ?? '';
+        $mapa = [
+            'Potwierdzone' => 5,
+            'W realizacji' => 25,
+            'Gotowe' => 60,
+            'Dostarczone' => 100
+        ];
+        $postep = $mapa[$status] ?? 0;
+        $archiwum = ($status === 'Dostarczone' && $_POST['submit'] === 'Zapisz');
 
-    $mapa = [
-      'Potwierdzone' => 5,
-      'W realizacji' => 25,
-      'Gotowe' => 60,
-      'Dostarczone' => 100
-    ];
-    $postep = $mapa[$status] ?? 0;
+        $stmt = $pdo->prepare("UPDATE zamowienia 
+                            SET status = :status, 
+                                postep = :postep, 
+                                archiwum = :archiwum 
+                            WHERE numer_zamowienia = :id");
 
-    $archiwum = false;
-    if ($status === 'Dostarczone' && isset($_POST['submit']) && $_POST['submit'] === 'Zapisz') {
-      $archiwum = true;
+        $stmt->bindValue(':status', $status, PDO::PARAM_STR);
+        $stmt->bindValue(':postep', $postep, PDO::PARAM_INT);
+        $stmt->bindValue(':archiwum', $archiwum, PDO::PARAM_BOOL);
+        $stmt->bindValue(':id', $_POST['update_id'], PDO::PARAM_STR);
+        $stmt->execute();
     }
 
-    $stmt = $pdo->prepare("UPDATE zamowienia 
-                           SET status = :status, 
-                               postep = :postep, 
-                               archiwum = :archiwum 
-                           WHERE numer_zamowienia = :id");
+    $sort = $_GET['sort'] ?? 'data_dodania';
+    $allowed = ['data_dodania', 'termin_dostarczenia', 'postep'];
+    $sort = in_array($sort, $allowed) ? $sort : 'data_dodania';
 
-    $stmt->bindValue(':status', $status, PDO::PARAM_STR);
-    $stmt->bindValue(':postep', $postep, PDO::PARAM_INT);
-    $stmt->bindValue(':archiwum', $archiwum, PDO::PARAM_BOOL);
-    $stmt->bindValue(':id', $_POST['update_id'], PDO::PARAM_STR);
-    $stmt->execute();
-  }
-
-  $sort = $_GET['sort'] ?? 'data_dodania';
-  $allowed = ['data_dodania', 'termin_dostarczenia', 'postep'];
-  $sort = in_array($sort, $allowed) ? $sort : 'data_dodania';
-
-  $zamowienia = $pdo->query("SELECT * FROM zamowienia WHERE archiwum = false ORDER BY $sort DESC")->fetchAll(PDO::FETCH_ASSOC);
-
+    $zamowienia = $pdo->query("SELECT * FROM zamowienia WHERE archiwum = false ORDER BY $sort")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-  die("❌ Błąd połączenia z bazą: " . $e->getMessage());
+    echo "Błąd: " . $e->getMessage();
 }
 ?>
 
@@ -147,5 +140,6 @@ try {
       </table>
     </div>
   </main>
+  
 </body>
 </html>
