@@ -10,11 +10,24 @@ function generateOrderNumber($pdo) {
   $today = date("Ymd");
   $prefix = "ZAM$today";
 
-  $stmt = $pdo->prepare("SELECT COUNT(*) FROM zamowienia WHERE TO_CHAR(data_dodania, 'YYYYMMDD') = ?");
-  $stmt->execute([$today]);
-  $count = $stmt->fetchColumn() + 1;
+  $stmt = $pdo->prepare("
+    SELECT numer_zamowienia 
+    FROM zamowienia 
+    WHERE numer_zamowienia LIKE :prefix 
+    ORDER BY numer_zamowienia DESC 
+    LIMIT 1
+  ");
+  $stmt->execute(['prefix' => "$prefix-%"]);
+  $last = $stmt->fetchColumn();
 
-  return $prefix . "-" . str_pad($count, 3, "0", STR_PAD_LEFT);
+  if ($last) {
+    $lastNumber = (int)substr($last, -3);
+    $nextNumber = $lastNumber + 1;
+  } else {
+    $nextNumber = 1;
+  }
+
+  return $prefix . '-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 }
 
 $message = "";
