@@ -48,10 +48,10 @@ Użytkownicy są podzieleni na działy. Przykład:
 
 | Widok               | Zrzut ekranu                         |
 |---------------------|--------------------------------------|
-| 📝 Strona zamówień   | ![](screenshots/orders.png)          |
-| ➕ Formularz dodawania | ![](screenshots/add_order.png)       |
-| 🔒 Logowanie         | ![](screenshots/login.png)           |
-| 📁 Archiwum (biuro)  | ![](screenshots/archive.png)         |
+| 📝 Strona zamówień   | ![](/public/screenshots/orders.png)          |
+| ➕ Formularz dodawania | ![](/public/screenshots/add_order.png)       |
+| 🔒 Logowanie         | ![](/public/screenshots/login.png)           |
+| 📁 Archiwum (biuro)  | ![](/public/screenshots/archive.png)         |
 
 ## 🛠️ Uruchamianie projektu (Docker)
 
