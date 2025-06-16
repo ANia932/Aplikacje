@@ -77,6 +77,5 @@ docker exec -i lab01-konfiguracja-db-1 psql -U postgres -d moja_baza < dump.sql
 
 ![](/public/images/Diagram%20ERD.png)
 
-📎 Przedstawia tabele `users`, `zamowienia`, relacje i klucze obce  
-Dodaj obrazek w folderze projektu jako `diagram.png`.
+📎 Przedstawia tabele `users`, `zamowienia`, relacje i klucze obce.
 
