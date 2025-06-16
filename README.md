@@ -75,7 +75,7 @@ docker exec -i lab01-konfiguracja-db-1 psql -U postgres -d moja_baza < dump.sql
 
 ## 🧱 Diagram ERD
 
-> Umieść plik jako `diagram.png` lub `diagram.dbml`
+![](/public/images/Diagram%20ERD.png)
 
 📎 Przedstawia tabele `users`, `zamowienia`, relacje i klucze obce  
 Dodaj obrazek w folderze projektu jako `diagram.png`.
