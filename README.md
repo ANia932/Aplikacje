@@ -43,14 +43,15 @@ Użytkownicy są podzieleni na działy. Przykład:
 - **dział = "biuro"** – widzi wszystkie przyciski, może dodawać i archiwizować zamówienia
 - **inni użytkownicy** – widzą tylko przypisane im zamówienia
 
-## 🖼️ Screenshoty aplikacji
 
-| Widok                    | Screenshot                      |
-|--------------------------|----------------------------------|
-| 📋 Strona zamówień       | `screenshots/orders.png`        |
-| ➕ Formularz dodawania    | `screenshots/add_order.png`     |
-| 🔒 Logowanie             | `screenshots/login.png`         |
-| 📁 Archiwum (biuro)      | `screenshots/archive.png`       |
+## 🖼️ Zrzut ekranu aplikacji
+
+| Widok               | Zrzut ekranu                         |
+|---------------------|--------------------------------------|
+| 📝 Strona zamówień   | ![](screenshots/orders.png)          |
+| ➕ Formularz dodawania | ![](screenshots/add_order.png)       |
+| 🔒 Logowanie         | ![](screenshots/login.png)           |
+| 📁 Archiwum (biuro)  | ![](screenshots/archive.png)         |
 
 ## 🛠️ Uruchamianie projektu (Docker)
 
