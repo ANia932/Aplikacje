@@ -10,7 +10,14 @@ try {
     $pdo = new PDO("pgsql:host=db;port=5432;dbname=moja_baza", "postgres", "postgres");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_id'])) {
+    // Obsługa usuwania
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_id'])) {
+        $stmt = $pdo->prepare("DELETE FROM zamowienia WHERE numer_zamowienia = :id");
+        $stmt->execute(['id' => $_POST['delete_id']]);
+    }
+
+    // Obsługa aktualizacji
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_id']) && !isset($_POST['delete_id'])) {
         $status = $_POST['status'] ?? $_POST['hidden_status'] ?? '';
         $mapa = [
             'Potwierdzone' => 5,
@@ -115,7 +122,7 @@ try {
                 <td><?= htmlspecialchars($z['lokalizacja']) ?></td>
                 <td><?= htmlspecialchars($z['miejsce_dostawy']) ?></td>
                 <td>
-                <select name="status">
+                  <select name="status">
                     <option value="Potwierdzone" <?= $z['status'] === 'Potwierdzone' ? 'selected' : '' ?>>Potwierdzone</option>
                     <option value="W realizacji" <?= $z['status'] === 'W realizacji' ? 'selected' : '' ?>>W realizacji</option>
                     <option value="Gotowe" <?= $z['status'] === 'Gotowe' ? 'selected' : '' ?>>Gotowe</option>
@@ -132,14 +139,19 @@ try {
                     </div>
                   </div>
                 </td>
-                <td><button name="submit" value="Zapisz" class="cancel-button">Zapisz</button></td>
-              </form>
+                <td>
+                  <button name="submit" value="Zapisz" class="cancel-button">Zapisz</button>
+                </form>
+                <form method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć to zamówienie?');" style="margin-top: 5px;">
+                  <input type="hidden" name="delete_id" value="<?= htmlspecialchars($z['numer_zamowienia']) ?>">
+                  <button type="submit" class="cancel-button" style="background:#dc3545;">Usuń</button>
+                </form>
+                </td>
             </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
     </div>
   </main>
-  
-</body>
+ </body>
 </html>
