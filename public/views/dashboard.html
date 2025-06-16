@@ -1,0 +1,74 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.html");
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Główny</title>
+  <link rel="stylesheet" href="../styles/dashboard.css" />
+  <script src="https://kit.fontawesome.com/8fd9367667.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="../images/logo.png" alt="Logo">
+    </div>
+    <nav class="nav-wrapper">
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html">Panel główny</a></li>
+        <li><a href="orders.html">Zamówienia</a></li>
+        <?php if ($_SESSION['dzial'] === 'biuro'): ?>
+          <li><a href="pricing.html">Cennik</a></li>
+        <?php endif; ?>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="dashboard-content">
+    <section class="card calendar">
+      <h2>Kalendarz zamówień</h2>
+      <div class="calendar-box">
+        <p><strong>10.04</strong> — <a href="pdf/ZAM123.pdf" target="_blank">#ZAM123</a></p>
+        <p><strong>12.04</strong> — <a href="pdf/ZAM456.pdf" target="_blank">#ZAM456</a></p>
+        <p><strong>14.04</strong> — <a href="pdf/ZAM789.pdf" target="_blank">#ZAM789</a></p>
+      </div>
+    </section>
+
+    <section class="card delays">
+      <h2>Poziom opóźnień</h2>
+      <div class="delay-box">
+        <p>🔴 2 zamówienia opóźnione</p>
+        <ul class="delay-list red">
+          <li><a href="pdf/ZAM404.pdf" target="_blank">#ZAM404</a></li>
+          <li><a href="pdf/ZAM405.pdf" target="_blank">#ZAM405</a></li>
+        </ul>
+
+        <p>🟡 1 zamówienie blisko terminu</p>
+        <ul class="delay-list yellow">
+          <li><a href="pdf/ZAM409.pdf" target="_blank">#ZAM409</a></li>
+        </ul>
+
+        <p>🟢 Pozostałe bez opóźnień</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>

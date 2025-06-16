@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LOGIN</title>
+  <link rel="stylesheet" href="/public/styles/main.css">
+  <script src="https://kit.fontawesome.com/8fd9367667.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <?php include("token.php"); ?>
+  <div id="login-page">
+    <section class="left-section">
+      <div class="logo-container">
+        <img src="/public/images/logo.png" alt="Logo">
+      </div>
+    </section>
+
+    <section class="right-section">
+      <div class="login-container">
+        <h2>LOGOWANIE</h2>
+        <form action="login.php" method="post">
+          <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generateToken()); ?>">
+          <div class="email">
+            <i class="fas fa-at"></i>
+            <input type="email" name="email" placeholder="e-mail" required>
+          </div>
+          <div class="password">
+            <i class="fas fa-key"></i>
+            <input type="password" name="password" placeholder="password" required>
+          </div>
+          <button type="submit">Zaloguj się</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 2em;">
+            <p style="margin-bottom: 0.5em; font-size: 0.95rem;">Nie masz konta?</p>
+            <form action="index.php" method="get">
+              <input type="hidden" name="page" value="register">
+              <button type="submit" style="margin-top: 0;">Zarejestruj się</button>
+            </form>
+          </div>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>

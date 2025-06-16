@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+
+
+.filters-bar {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 0.8em 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filters-form {
+  display: none;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 1em;
+  background-color: #f0f0f0;
+  border-radius: 0 0 0.5em 0.5em;
+  margin-bottom: 1em;
+}
+
+.filters-form.visible {
+  display: flex;
+}
+
+.filters-form input,
+.filters-form select {
+  padding: 0.5em;
+  min-width: 160px;
+  border: 1px solid #ccc;
+  border-radius: 0.4em;
+  height: 36px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.container {
+  width: 100%;
+  padding: 2em;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 1.5em;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 1em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  padding: 0.75em;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+thead {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+td.component-name {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 300px;
+}
+
+table input[type="number"] {
+  width: 80px;
+  padding: 0.3em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background-color: #fdfdfd;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.4em 0.9em;
+  border-radius: 0.4em;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+  
+  .filters-form {
+    flex-direction: column;
+  }
+
+  .filters-form input,
+  .filters-form select {
+    width: 100%;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+ 
+}
+/* Form section stylizacja */
+
+.form-section form,
+#filters-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-section input,
+.form-section select {
+  padding: 0.4em 0.75em;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  height: 36px;
+  min-width: 160px;
+  background-color: #fff;
+}
+
+.form-section button,
+.filters-form button,
+button {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 0 1em;
+  font-size: 14px;
+  font-weight: 600;
+  height: 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover,
+.form-section button:hover,
+.filters-form button:hover {
+  background-color: #444;
+}
+
+/* --- Styl formularza dodawania komponentu --- */
+.form-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2em;
+  margin: 2em auto;
+  width: 95%;
+  max-width: 1600px;
+}
+
+.form-section h2 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.form-section form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.form-section input,
+.form-section select {
+  padding: 0.6em 1em;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  height: 40px;
+  min-width: 160px;
+  background-color: #fff;
+}
+
+.form-section button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  height: 42px;
+  padding: 0 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-section button:hover {
+  background-color: #c82333;
+}

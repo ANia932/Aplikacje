@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aktualne zamówienia</title>
+  <link rel="stylesheet" href="/public/styles/orders.css" />
+  <script src="https://kit.fontawesome.com/8fd9367667.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="/public/images/logo.png" alt="Logo">
+    </div>
+    <nav class="nav-wrapper">
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html">Panel główny</a></li>
+        <li><a href="orders.html">Zamówienia</a></li>
+        <li><a href="pricing.html">Cennik</a></li>
+        <li><a href="#">Zapotrzebowanie</a></li>
+        <li><a href="#">Lasery</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- === FILTRY (rozwijalne) === -->
+  <section class="filters-toggle">
+    <div class="filters-bar" id="filter-toggle">
+      <span class="icon-left"><i class="fas fa-chevron-down"></i></span>
+      <span class="label">Filters</span>
+      <span class="icon-right"><i class="fas fa-chevron-down"></i></span>
+    </div>
+
+    <div class="filters-form" id="filters-panel">
+      <input type="text" placeholder="- Nazwa komponentu -">
+      <input type="text" placeholder="- Linia produktowa -">
+      <select><option>- Właściciel -</option></select>
+      <select><option>- Zarządca -</option></select>
+      <select><option>- Produkcja -</option></select>
+      <select><option>- Przypisanie -</option></select>
+      <select><option>- Dostawca -</option></select>
+      <select><option>- Termin realizacji -</option></select>
+      <select><option>- Miejsce dostawy -</option></select>
+      <select><option>- Termin dostarczenia -</option></select>
+      <select><option>- Status -</option></select>
+      <button class="export-button">Eksportuj</button>
+    </div>
+  </section>
+
+  <main class="container">
+    <h2>AKTYWNE zamówienia komponentów</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Numer</th>
+            <th>Nazwa komponentu</th>
+            <th>Ilość</th>
+            <th>Numer produkcji</th>
+            <th>Lokalizacja docelowa</th>
+            <th>Miejsce dostawy</th>
+            <th>Status</th>
+            <th>Przypisanie</th>
+            <th>Termin dostarczenia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DS321318</td>
+            <td class="component-name">ANTHRACITE METAL powder coated RAL 7021 MAT</td>
+            <td>51</td>
+            <td>PR10482</td>
+            <td>Szwajcaria, Lausanne</td>
+            <td>Magazyn główny</td>
+            <td>Przygotowano dostawę na magazyn</td>
+            <td>Mateusz Dzenel</td>
+            <td>2025-04-14</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- === SKRYPT (musi być na końcu strony!) === -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    const filterToggle = document.getElementById('filter-toggle');
+    const filtersPanel = document.getElementById('filters-panel');
+    filterToggle.addEventListener('click', () => {
+      filtersPanel.classList.toggle('visible');
+    });
+  </script>
+</body>
+</html>

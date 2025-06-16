@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cennik komponentów</title>
+  <link rel="stylesheet" href="/public/styles/pricing.css" />
+  <script src="https://kit.fontawesome.com/8fd9367667.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="/public/images/logo.png" alt="Logo">
+    </div>
+    <nav class="nav-wrapper">
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html">Panel główny</a></li>
+        <li><a href="orders.html">Zamówienia</a></li>
+        <li><a href="pricing.html">Cennik</a></li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <section class="filters-toggle">
+    <div class="filters-bar" id="filter-toggle">
+      <span><i class="fas fa-chevron-down"></i></span>
+      <span>Filters</span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
+
+    <div class="filters-form" id="filters-panel">
+      <input type="text" placeholder="- Nazwa komponentu -">
+      <input type="text" placeholder="- Linia produktowa -">
+      <select><option>- Kategoria -</option></select>
+      <select><option>- Technologia -</option></select>
+      <input type="text" placeholder="- Waga (kg) -">
+      <input type="text" placeholder="- Długość -">
+      <input type="text" placeholder="- Szerokość -">
+      <input type="text" placeholder="- Wysokość -">
+      <input type="text" placeholder="- Czas produkcji -">
+    </div>
+  </section>
+
+  <main class="container">
+    <h2 class="section-title">ZŁOŻONE OFERTY NA KOMPONENTY</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nazwa komponentu</th>
+            <th>Kategoria</th>
+            <th>Technologia</th>
+            <th>Waga (kg)</th>
+            <th>Długość</th>
+            <th>Szerokość</th>
+            <th>Wysokość</th>
+            <th>Cena</th>
+            <th>Waluta</th>
+            <th>Czas prod. (dni)</th>
+            <th>Złożona</th>
+            <th>Odwołaj</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>KOF129674</td>
+            <td class="component-name">IQOS Boutique 2.0 – WOP Wall – uchwyt ekranu 24"</td>
+            <td>Meble do zabudowy</td>
+            <td>Metale</td>
+            <td><input type="number" value="1.50" step="0.01"></td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td><input type="number" value="125.00" step="0.01"></td>
+            <td>
+              <select>
+                <option>PLN</option>
+                <option>EUR</option>
+              </select>
+            </td>
+            <td><input type="number" value="21" min="1" step="1"></td>
+            <td>2025-04-03</td>
+            <td><button class="cancel-button">Odwołaj</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    const filterToggle = document.getElementById('filter-toggle');
+    const filtersPanel = document.getElementById('filters-panel');
+    filterToggle.addEventListener('click', () => {
+      filtersPanel.classList.toggle('visible');
+    });
+  </script>
+</body>
+</html>

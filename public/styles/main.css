@@ -1,0 +1,140 @@
+* {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --primary-color: rgb(4, 4, 33);
+    --secondary-color: gray;
+    
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#login-page {
+    display: flex;
+    height: 100vh;
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Lewa sekcja z logo */
+.left-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-container img {
+    max-width: 70%; /* Zwiększa logo, ale nie pozwala przekroczyć szerokości */
+    max-height: 60%; /* Ogranicza wysokość */
+    object-fit: contain; /* Zapewnia proporcje */
+}
+/* Prawa sekcja z formularzem */
+.right-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container h2 {
+    font-size: 2rem; /* Powiększa napis */
+    font-weight: bold;
+    text-align: center; /* Wycentrowanie */
+    margin-bottom: 1.5rem; /* Dodaje odstęp od pól */
+}
+/* Styl formularza logowania */
+.login-container {
+    background-color: rgb(255, 255, 255);
+    padding: 3em;
+    border-radius: 1em;
+    box-shadow: rgb(0 0 0 / 34%) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    width: 60%;
+}
+
+/* Stylowanie pól formularza */
+.email, .password {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.email input, .password input {
+    width: 100%;
+    padding-left: 2.5em;
+    height: 2.5rem;
+    border-radius: 1em;
+    border: 1px solid gray;
+    box-shadow: rgb(204 219 232 / 31%) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-sizing: border-box;
+}
+
+/* Ikony w polach formularza */
+.email i, .password i {
+    position: absolute;
+    left: 10px;
+    color: var(--primary-color);
+}
+
+/* Przycisk logowania */
+button {
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+    height: 2.5em;
+    border-radius: 1em;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+/* Responsywność - dostosowanie do mniejszych ekranów */
+@media (max-width: 768px) {
+    #login-page {
+        flex-direction: column;
+    }
+
+    .left-section, .right-section {
+        width: 100%;
+    }
+
+    .login-container {
+        width: 80%;
+    }
+} 
+
+.secondary-button {
+    display: block;
+    margin-top: 1em;
+    text-align: center;
+    background-color: white;
+    border: 2px solid #000033;
+    color: #000033;
+    border-radius: 1em;
+    padding: 0.6em;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  
+  .secondary-button:hover {
+    background-color: #f0f0f0;
+  }
