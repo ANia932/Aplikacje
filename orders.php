@@ -12,6 +12,15 @@ try {
 
     // Obsługa usuwania
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_id'])) {
+        // przenieś do archiwum jako NIEZREALIZOWANE
+        $stmt = $pdo->prepare("
+            INSERT INTO archiwum_zamowien 
+            (numer_zamowienia, nazwa, ilosc, numer_produkcji, miejsce_dostawy, magazyn, status, osoba_odpowiedzialna, data_dostawy, data_dodania, postep, czy_zrealizowano)
+            SELECT numer_zamowienia, nazwa, ilosc, numer_produkcji, miejsce_dostawy, magazyn, 'Nierealizowane', osoba_odpowiedzialna, data_dostawy, data_dodania, postep, false
+            FROM zamowienia WHERE numer_zamowienia = :id
+        ");
+        $stmt->execute(['id' => $_POST['delete_id']]);
+
         $stmt = $pdo->prepare("DELETE FROM zamowienia WHERE numer_zamowienia = :id");
         $stmt->execute(['id' => $_POST['delete_id']]);
     }
@@ -26,28 +35,32 @@ try {
             'Dostarczone' => 100
         ];
         $postep = $mapa[$status] ?? 0;
-        $archiwum = ($status === 'Dostarczone' && $_POST['submit'] === 'Zapisz');
 
-        $stmt = $pdo->prepare("UPDATE zamowienia 
-                            SET status = :status, 
-                                postep = :postep, 
-                                archiwum = :archiwum 
-                            WHERE numer_zamowienia = :id");
+        if ($status === 'Dostarczone') {
+            // przenieś do archiwum jako ZREALIZOWANE
+            $stmt = $pdo->prepare("
+                INSERT INTO archiwum_zamowien 
+                (numer_zamowienia, nazwa, ilosc, numer_produkcji, miejsce_dostawy, magazyn, status, osoba_odpowiedzialna, data_dostawy, data_dodania, postep, czy_zrealizowano)
+                SELECT numer_zamowienia, nazwa, ilosc, numer_produkcji, miejsce_dostawy, magazyn, 'Zrealizowane', osoba_odpowiedzialna, data_dostawy, data_dodania, 100, true
+                FROM zamowienia WHERE numer_zamowienia = :id
+            ");
+            $stmt->execute(['id' => $_POST['update_id']]);
 
-        $stmt->bindValue(':status', $status, PDO::PARAM_STR);
-        $stmt->bindValue(':postep', $postep, PDO::PARAM_INT);
-        $stmt->bindValue(':archiwum', $archiwum, PDO::PARAM_BOOL);
-        $stmt->bindValue(':id', $_POST['update_id'], PDO::PARAM_STR);
-        $stmt->execute();
+            $stmt = $pdo->prepare("DELETE FROM zamowienia WHERE numer_zamowienia = :id");
+            $stmt->execute(['id' => $_POST['update_id']]);
+        } else {
+            // zwykła aktualizacja w tabeli zamówienia
+            $stmt = $pdo->prepare("UPDATE zamowienia SET status = :status, postep = :postep WHERE numer_zamowienia = :id");
+            $stmt->execute([
+                'status' => $status,
+                'postep' => $postep,
+                'id' => $_POST['update_id']
+            ]);
+        }
     }
 
-    $sort = $_GET['sort'] ?? 'data_dodania';
-    $allowed = ['data_dodania', 'termin_dostarczenia', 'postep'];
-    $sort = in_array($sort, $allowed) ? $sort : 'data_dodania';
-
-    $zamowienia = $pdo->query("SELECT * FROM zamowienia WHERE archiwum = false ORDER BY $sort")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "Błąd: " . $e->getMessage();
+    die("❌ Błąd połączenia z bazą danych lub zapytania: " . $e->getMessage());
 }
 ?>
 
