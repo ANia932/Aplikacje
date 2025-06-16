@@ -51,7 +51,7 @@ Użytkownicy są podzieleni na działy. Przykład:
 | 📝 Strona zamówień   | ![](/public/screenshots/orders.png)          |
 | ➕ Formularz dodawania | ![](/public/screenshots/add_order.png)       |
 | 🔒 Logowanie         | ![](/public/screenshots/login.png)           |
-| 📁 Archiwum (biuro)  | ![](/public/screenshots/archive.png)         |
+| 📁 Archiwum   | ![](/public/screenshots/archive.png)         |
 
 ## 🛠️ Uruchamianie projektu (Docker)
 
